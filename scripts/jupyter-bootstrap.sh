@@ -2,6 +2,11 @@
 
 nohup sh -c /spark-bootstrap.sh &
 
+# Check if PyPI packages need to be installed.
+if [ -f /requirements.txt ]; then
+    pip install --no-cache --requirement /requirements.txt
+fi
+
 # Start the Zeppelin server.
 PYSPARK_DRIVER_PYTHON=/home/hdfs/.local/bin/jupyter\
  PYSPARK_DRIVER_PYTHON_OPTS="notebook\

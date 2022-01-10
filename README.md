@@ -18,13 +18,14 @@
 - [The Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
 
 ## Quick Start
-Impatient and just want Jupyter with Apache Spark quickly?  Place your notebooks under the `notebook` directory and run:
+Impatient and just want Jupyter with Apache Spark quickly?  Place your notebooks under the `notebook` directory and optionally set your Python dependencies in your `requirements.txt` file.  Then run:
 ```
 docker run --rm -d\
  --name jupyter-spark-pseudo\
  --hostname jupyter-spark-pseudo\
  --env JUPYTER_PORT=8889\
  --volume $PWD/notebooks:/home/hdfs/notebooks\
+ --volume $PWD/requirements.txt:/requirements.txt\
  --env YARN_SITE__YARN_NODEMANAGER_RESOURCE_DETECT_HARDWARE_CAPABILITIES=true\
  --publish 8032:8032\
  --publish 8088:8088\
