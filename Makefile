@@ -2,8 +2,8 @@
 
 MAKESTER__REPO_NAME := loum
 
-SPARK_VERSION := 3.2.0
-JUPYTER_VERSION := 6.4.6
+SPARK_VERSION := 3.2.1
+JUPYTER_VERSION := 6.4.8
 
 # Tagging convention used: <jupyter-version>-<spark-version>-<image-release-number>
 MAKESTER__VERSION := $(JUPYTER_VERSION)-$(SPARK_VERSION)
@@ -15,7 +15,7 @@ include makester/makefiles/makester.mk
 include makester/makefiles/docker.mk
 include makester/makefiles/python-venv.mk
 
-UBUNTU_BASE_IMAGE := focal-20220105
+UBUNTU_BASE_IMAGE := focal-20220113
 SPARK_PSEUDO_BASE_IMAGE := 3.3.1-$(SPARK_VERSION)
 
 MAKESTER__BUILD_COMMAND = $(DOCKER) build --rm\
@@ -48,8 +48,9 @@ backoff:
 	@$(PYTHON) makester/scripts/backoff -d "Spark HistoryServer web UI port" -p 18080 localhost
 	@$(PYTHON) makester/scripts/backoff -d "Web UI for Jupyter" -p $(JUPYTER_PORT) localhost
 
-controlled-run: run backoff
-	clear
+controlled-run: run backoff jupyter-server
+
+jupyter-server:
 	$(info ### enter the Jupyter Notebook server URL into your browser:)
 	@$(DOCKER) exec -ti $(MAKESTER__CONTAINER_NAME) bash -c "jupyter notebook list"
 
