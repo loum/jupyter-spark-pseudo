@@ -3,7 +3,7 @@
 MAKESTER__REPO_NAME := loum
 
 SPARK_VERSION := 3.2.1
-JUPYTER_VERSION := 6.4.8
+JUPYTER_VERSION := 6.4.10
 
 # Tagging convention used: <jupyter-version>-<spark-version>-<image-release-number>
 MAKESTER__VERSION := $(JUPYTER_VERSION)-$(SPARK_VERSION)
@@ -15,8 +15,8 @@ include makester/makefiles/makester.mk
 include makester/makefiles/docker.mk
 include makester/makefiles/python-venv.mk
 
-UBUNTU_BASE_IMAGE := focal-20220113
-SPARK_PSEUDO_BASE_IMAGE := 3.3.1-$(SPARK_VERSION)
+UBUNTU_BASE_IMAGE := focal-20220316
+SPARK_PSEUDO_BASE_IMAGE := 3.3.2-$(SPARK_VERSION)
 
 MAKESTER__BUILD_COMMAND = $(DOCKER) build --rm\
  --no-cache\
