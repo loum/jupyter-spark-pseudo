@@ -6,7 +6,6 @@ ARG SPARK_PSEUDO_BASE_IMAGE
 FROM loum/spark-pseudo:$SPARK_PSEUDO_BASE_IMAGE
 
 USER root
-ARG OPENJDK_8_HEADLESS
 RUN apt-get update && apt-get install -y --no-install-recommends\
  vim\
  wget\
@@ -36,6 +35,7 @@ EXPOSE 8042
 
 # Spark HistoryServer web UI port.
 EXPOSE 18080
+ARG JUPYTER_PORT=8889
 EXPOSE $JUPYTER_PORT
 
 WORKDIR $JUPYTER_HOME

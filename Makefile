@@ -2,8 +2,8 @@
 
 MAKESTER__REPO_NAME := loum
 
-SPARK_VERSION := 3.2.1
-JUPYTER_VERSION := 6.4.10
+SPARK_VERSION := 3.3.0
+JUPYTER_VERSION := 6.4.12
 
 # Tagging convention used: <jupyter-version>-<spark-version>-<image-release-number>
 MAKESTER__VERSION := $(JUPYTER_VERSION)-$(SPARK_VERSION)
@@ -15,17 +15,18 @@ include makester/makefiles/makester.mk
 include makester/makefiles/docker.mk
 include makester/makefiles/python-venv.mk
 
-UBUNTU_BASE_IMAGE := focal-20220316
-SPARK_PSEUDO_BASE_IMAGE := 3.3.2-$(SPARK_VERSION)
+UBUNTU_BASE_IMAGE := jammy-20220531
+SPARK_PSEUDO_BASE_IMAGE := 3.3.3-$(SPARK_VERSION)
 
+JUPYTER_PORT ?= 8889
 MAKESTER__BUILD_COMMAND = $(DOCKER) build --rm\
  --no-cache\
  --build-arg UBUNTU_BASE_IMAGE=$(UBUNTU_BASE_IMAGE)\
  --build-arg SPARK_PSEUDO_BASE_IMAGE=$(SPARK_PSEUDO_BASE_IMAGE)\
  --build-arg JUPYTER_VERSION=$(JUPYTER_VERSION)\
+ --build-arg JUPYTER_PORT=$(JUPYTER_PORT)\
  -t $(MAKESTER__IMAGE_TAG_ALIAS) .
 
-JUPYTER_PORT ?= 8889
 MAKESTER__RUN_COMMAND := $(DOCKER) run --rm -d\
  --name $(MAKESTER__CONTAINER_NAME)\
  --hostname $(MAKESTER__CONTAINER_NAME)\
