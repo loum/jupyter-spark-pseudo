@@ -1,16 +1,10 @@
+# syntax=docker/dockerfile:1.4
+
 ARG JUPYTER_VERSION
-ARG UBUNTU_BASE_IMAGE
 ARG SPARK_PSEUDO_BASE_IMAGE
 
 ARG SPARK_PSEUDO_BASE_IMAGE
-FROM loum/spark-pseudo:$SPARK_PSEUDO_BASE_IMAGE
-
-USER root
-RUN apt-get update && apt-get install -y --no-install-recommends\
- vim\
- wget\
- less &&\
- rm -rf /var/lib/apt/lists/*
+FROM $SPARK_PSEUDO_BASE_IMAGE as main
 
 # Run everything as JUPYTER_USER
 ARG JUPYTER_USER=hdfs
@@ -49,3 +43,4 @@ RUN python -m pip install\
  notebook==$JUPYTER_VERSION
 
 ENTRYPOINT [ "/jupyter-bootstrap.sh" ]
+CMD = []

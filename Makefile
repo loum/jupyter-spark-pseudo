@@ -7,7 +7,7 @@ JUPYTER_VERSION := 6.4.12
 
 # Tagging convention used: <jupyter-version>-<spark-version>-<image-release-number>
 MAKESTER__VERSION := $(JUPYTER_VERSION)-$(SPARK_VERSION)
-MAKESTER__RELEASE_NUMBER := 1
+MAKESTER__RELEASE_NUMBER := 2
 
 MAKESTER__CONTAINER_NAME := jupyter-spark-pseudo
 
@@ -15,15 +15,12 @@ include makester/makefiles/makester.mk
 include makester/makefiles/docker.mk
 include makester/makefiles/python-venv.mk
 
-UBUNTU_BASE_IMAGE := jammy-20220531
-SPARK_PSEUDO_BASE_IMAGE := 3.3.3-$(SPARK_VERSION)
+SPARK_PSEUDO_BASE_IMAGE := 3.3.4-$(SPARK_VERSION)
 
 JUPYTER_PORT ?= 8889
 MAKESTER__BUILD_COMMAND = $(DOCKER) build --rm\
  --no-cache\
- --format docker\
- --build-arg UBUNTU_BASE_IMAGE=$(UBUNTU_BASE_IMAGE)\
- --build-arg SPARK_PSEUDO_BASE_IMAGE=$(SPARK_PSEUDO_BASE_IMAGE)\
+ --build-arg SPARK_PSEUDO_BASE_IMAGE=loum/spark-pseudo:$(SPARK_PSEUDO_BASE_IMAGE)\
  --build-arg JUPYTER_VERSION=$(JUPYTER_VERSION)\
  --build-arg JUPYTER_PORT=$(JUPYTER_PORT)\
  -t $(MAKESTER__IMAGE_TAG_ALIAS) .
