@@ -3,7 +3,7 @@
 MAKESTER__REPO_NAME := loum
 
 SPARK_VERSION := 3.3.0
-JUPYTER_VERSION := 6.4.12
+JUPYTER_VERSION := 6.5.1
 
 # Tagging convention used: <jupyter-version>-<spark-version>-<image-release-number>
 MAKESTER__VERSION := $(JUPYTER_VERSION)-$(SPARK_VERSION)
